@@ -1,5 +1,6 @@
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:manager/provider/money_bucket_list_provider.dart';
 import 'package:manager/provider/money_bucket_provider.dart';
 import 'package:manager/widgets/incomevexpense.dart';
 import 'package:manager/widgets/money_bucket.dart';
@@ -12,25 +13,38 @@ class OverviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) =>
-          MoneyBucketProvider(name: "Food", totalAmount: 30, usedAmount: 15),
-      child: Scaffold(
-        body: ColumnSuper(
-          separator: IncomeVsExpense(),
-          children: <Widget>[
-            MoneyOverview(),
-            Column(
-              children: [
-                SizedBox(
-                  height: 60,
-                ),
-                MoneyBucket(category: "Food"),
-              ],
-            ),
-          ],
-        ),
+    List<MoneyBucketProvider> _moneyBuckets =
+        Provider.of<MoneyBucketListProvider>(context).getMoneyBuckets;
+    return Scaffold(
+      body: ColumnSuper(
+        separator: IncomeVsExpense(),
+        children: <Widget>[
+          MoneyOverview(),
+          Column(
+            children: [
+              SizedBox(
+                height: 60,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.6,
+                child: ListView.builder(
+                    itemCount: _moneyBuckets.length,
+                    itemBuilder: ((context, index) =>
+                        ChangeNotifierProvider.value(
+                          value: _moneyBuckets[index],
+                          child:
+                              MoneyBucket(category: _moneyBuckets[index].name),
+                        ))),
+              )
+            ],
+          ),
+        ],
       ),
+      floatingActionButton: ElevatedButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

@@ -15,7 +15,8 @@ class MoneyBucket extends StatelessWidget {
     final totalAmount = provider.getTotalAmount;
     final currentAmount = provider.getUsedAmount;
     return Container(
-      width: width * 0.95,
+      padding: EdgeInsets.all(5),
+      width: width * 0.85,
       height: height * 0.07,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -23,38 +24,60 @@ class MoneyBucket extends StatelessWidget {
           Flexible(child: Text(category), flex: 1),
           Flexible(
             flex: 7,
-            child: Row(
-              children: [
-                Flexible(
-                  flex: (currentAmount.toInt()),
-                  child: Container(
+            child: (totalAmount.toInt() - currentAmount.toInt()) == 0
+                ? Container(
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.tertiary,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        bottomLeft: Radius.circular(10),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
                       ),
                     ),
                     height: double.maxFinite,
                     width: double.maxFinite,
-                  ),
-                ),
-                Flexible(
-                  flex: (totalAmount.toInt() - currentAmount.toInt()),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
+                  )
+                : currentAmount.toInt() == 0
+                    ? Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.secondary,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                        height: double.maxFinite,
+                        width: double.maxFinite,
+                      )
+                    : Row(
+                        children: [
+                          Flexible(
+                            flex: (currentAmount.toInt()),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.tertiary,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10),
+                                ),
+                              ),
+                              height: double.maxFinite,
+                              width: double.maxFinite,
+                            ),
+                          ),
+                          Flexible(
+                            flex: (totalAmount.toInt() - currentAmount.toInt()),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                              ),
+                              height: double.maxFinite,
+                              width: double.maxFinite,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    height: double.maxFinite,
-                    width: double.maxFinite,
-                  ),
-                ),
-              ],
-            ),
           )
         ],
       ),
