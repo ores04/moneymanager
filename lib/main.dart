@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manager/screens/add_something.dart';
 import 'package:manager/screens/overview_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -18,17 +19,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         routes: {
           OverviewScreen.route: (context) => const OverviewScreen(),
+          AddSomethinScreen.route: ((context) => const AddSomethinScreen()),
         },
         title: 'Flutter Demo',
         theme: ThemeData(
             primaryColor: Color.fromRGBO(74, 78, 105, 40),
             colorScheme: const ColorScheme(
               brightness: Brightness.light,
-              primary: Color.fromRGBO(74, 78, 105, 100),
+              primary: Color.fromARGB(255, 74, 78, 105),
               onPrimary: Colors.white,
-              secondary: Color.fromRGBO(201, 173, 167, 100),
-              background: Color.fromRGBO(242, 233, 228, 100),
-              tertiary: Color.fromRGBO(154, 140, 152, 100),
+              secondary: Color.fromARGB(255, 201, 173, 167),
+              background: Color.fromARGB(255, 242, 233, 228),
+              tertiary: Color.fromARGB(255, 154, 140, 152),
               error: Colors.red,
               onBackground: Colors.white,
               onError: Colors.black,

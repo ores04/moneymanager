@@ -2,6 +2,7 @@ import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:manager/provider/money_bucket_list_provider.dart';
 import 'package:manager/provider/money_bucket_provider.dart';
+import 'package:manager/screens/add_something.dart';
 import 'package:manager/widgets/incomevexpense.dart';
 import 'package:manager/widgets/money_bucket.dart';
 import 'package:manager/widgets/money_overview.dart';
@@ -42,7 +43,9 @@ class OverviewScreen extends StatelessWidget {
       ),
       floatingActionButton: ElevatedButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed(AddSomethinScreen.route);
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
