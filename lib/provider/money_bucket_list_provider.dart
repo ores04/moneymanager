@@ -12,4 +12,10 @@ class MoneyBucketListProvider with ChangeNotifier {
   List<MoneyBucketProvider> get getMoneyBuckets {
     return _moneyBuckets;
   }
+
+  void addMoneyBucket(String name, double amount, double spendAmount) {
+    _moneyBuckets.add(MoneyBucketProvider(
+        name: name, totalAmount: amount, usedAmount: spendAmount));
+    notifyListeners();
+  }
 }

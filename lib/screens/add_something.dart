@@ -1,10 +1,12 @@
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:manager/widgets/add_moneybucket.dart';
 import 'package:manager/widgets/add_something_widget.dart';
 
 class AddSomethinScreen extends StatelessWidget {
   static const String route = "AddSomethingScreenRoute";
-  const AddSomethinScreen({Key? key}) : super(key: key);
+  AddSomethinScreen({Key? key}) : super(key: key);
+  bool addMoneyBucket = true;
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +37,21 @@ class AddSomethinScreen extends StatelessWidget {
           Positioned(
             top: height * 0.15,
             left: width * 0.05,
-            child: AddSomething(),
-          )
+            child: Container(
+              height: height * 0.67,
+              width: width * 0.9,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
+              child: addMoneyBucket ? AddMoneyBucket() : AddSomething(),
+            ),
+          ),
         ],
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterDocked,
       floatingActionButton: IconButton(
         icon: const Icon(
-          Icons.arrow_back_ios_new_rounded,
+          Icons.arrow_back,
           size: 36,
         ),
         onPressed: () {
