@@ -27,7 +27,7 @@ class OverviewScreen extends StatelessWidget {
                 height: 60,
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.6,
+                height: MediaQuery.of(context).size.height * 0.5,
                 child: ListView.builder(
                     itemCount: _moneyBuckets.length,
                     itemBuilder: ((context, index) =>

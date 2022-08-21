@@ -89,6 +89,8 @@ class Overlay extends StatelessWidget {
         return AddSomething();
       case ScreenToShow.showAddMoneyBucket:
         return AddMoneyBucket();
+      case ScreenToShow.showAddSomething:
+        return AddSomething();
       default:
         return AddSomething();
     }

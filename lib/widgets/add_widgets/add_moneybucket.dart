@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:manager/provider/money_bucket_list_provider.dart';
+import 'package:manager/screens/overview_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/which_add_screen_to_show.dart';
@@ -31,16 +32,26 @@ class AddMoneyBucket extends StatelessWidget {
                 return null;
               }
             },
-            decoration: InputDecoration(labelText: "*enter bucket name"),
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(),
+                  borderRadius: BorderRadius.all(Radius.circular(50))),
+              helperText: "name",
+            ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextFormField(
+            keyboardType: TextInputType.number,
             onSaved: ((newValue) {
               _amount = double.parse(newValue.toString());
             }),
-            decoration: InputDecoration(labelText: "*enter total amount"),
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50))),
+              helperText: "total amount",
+            ),
             validator: (value) {
               if (value!.isEmpty || !RegExp(r'([A-z]*)').hasMatch(value)) {
                 return "Enter a valid number";
@@ -53,10 +64,15 @@ class AddMoneyBucket extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextFormField(
+              keyboardType: TextInputType.number,
               onSaved: (newValue) {
                 _spendAmount = double.parse(newValue.toString());
               },
-              decoration: InputDecoration(labelText: "*enter taken amount"),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(50))),
+                helperText: "amount already spent",
+              ),
               validator: (value) {
                 if (value!.isEmpty || !RegExp(r'([A-z]*)').hasMatch(value)) {
                   return "Enter a valid name";
@@ -73,7 +89,7 @@ class AddMoneyBucket extends StatelessWidget {
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
                   Provider.of<WhichAddScreen>(context, listen: false)
-                      .showAddSomethong();
+                      .showAddSomething();
                 }),
             ElevatedButton(
                 onPressed: () {
@@ -81,6 +97,12 @@ class AddMoneyBucket extends StatelessWidget {
                     _formKey.currentState!.save();
                     Provider.of<MoneyBucketListProvider>(context, listen: false)
                         .addMoneyBucket(_name, _amount, _spendAmount);
+                    Navigator.of(context)
+                        .pushReplacementNamed(OverviewScreen.route);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('New Moneybucket added sucsessful')),
+                    );
                   }
                 },
                 child: Text("Submit"))

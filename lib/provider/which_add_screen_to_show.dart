@@ -29,7 +29,7 @@ class WhichAddScreen with ChangeNotifier {
     notifyListeners();
   }
 
-  void showAddSomethong() {
+  void showAddSomething() {
     _screenToShow = ScreenToShow.showAddSomething;
     notifyListeners();
   }
