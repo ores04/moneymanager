@@ -1,11 +1,19 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:manager/provider/which_add_screen_to_show.dart';
+import 'package:provider/provider.dart';
 
 class AddSomethingButton extends StatefulWidget {
   final String buttonRoute;
   final String title;
   final icon;
-  const AddSomethingButton(
+  Function changeTitleBool;
+
+  AddSomethingButton(
       {Key? key,
+      required this.changeTitleBool,
       required this.buttonRoute,
       required this.icon,
       required this.title})
@@ -25,7 +33,9 @@ class _AddSomethingButtonState extends State<AddSomethingButton> {
       child: InkWell(
         splashColor: Theme.of(context).colorScheme.tertiary,
         highlightColor: Theme.of(context).colorScheme.secondary,
-        onTap: () {},
+        onTap: () {
+          widget.changeTitleBool();
+        },
         child: SizedBox(
           height: height * 0.75 * 0.25,
           width: width * 0.9 * 0.9,

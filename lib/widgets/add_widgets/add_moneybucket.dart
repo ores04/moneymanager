@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:manager/provider/money_bucket_list_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../provider/which_add_screen_to_show.dart';
+
 class AddMoneyBucket extends StatelessWidget {
   const AddMoneyBucket({Key? key}) : super(key: key);
 
@@ -63,10 +65,16 @@ class AddMoneyBucket extends StatelessWidget {
                 }
               }),
         ),
+        // Buttons _________________
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButton(icon: Icon(Icons.arrow_back), onPressed: () {}),
+            IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  Provider.of<WhichAddScreen>(context, listen: false)
+                      .showAddSomethong();
+                }),
             ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {

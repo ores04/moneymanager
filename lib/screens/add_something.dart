@@ -1,12 +1,24 @@
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:manager/widgets/add_moneybucket.dart';
-import 'package:manager/widgets/add_something_widget.dart';
+import 'package:manager/provider/which_add_screen_to_show.dart';
+import 'package:manager/widgets/add_widgets/add_moneybucket.dart';
+import 'package:manager/widgets/add_widgets/add_something_widget.dart';
+import 'package:provider/provider.dart';
 
-class AddSomethinScreen extends StatelessWidget {
+class AddSomethinScreen extends StatefulWidget {
   static const String route = "AddSomethingScreenRoute";
   AddSomethinScreen({Key? key}) : super(key: key);
-  bool addMoneyBucket = true;
+
+  @override
+  State<AddSomethinScreen> createState() => _AddSomethinScreenState();
+}
+
+class _AddSomethinScreenState extends State<AddSomethinScreen> {
+  bool _showAddMoneyBucket = false;
+
+  bool _showBarcodeScan = false;
+
+  bool _showAddManuel = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +49,18 @@ class AddSomethinScreen extends StatelessWidget {
           Positioned(
             top: height * 0.15,
             left: width * 0.05,
-            child: Container(
-              height: height * 0.67,
-              width: width * 0.9,
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
-              child: addMoneyBucket ? AddMoneyBucket() : AddSomething(),
+            child: ChangeNotifierProvider(
+              create: (BuildContext context) {
+                return WhichAddScreen();
+              },
+              child: Container(
+                height: height * 0.67,
+                width: width * 0.9,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Overlay(),
+              ),
             ),
           ),
         ],
@@ -58,6 +76,35 @@ class AddSomethinScreen extends StatelessWidget {
           Navigator.of(context).pop();
         },
       ),
+    );
+  }
+}
+
+class Overlay extends StatelessWidget {
+  const Overlay({Key? key}) : super(key: key);
+
+  Widget whichAddToShow(ScreenToShow screen) {
+    switch (screen) {
+      case ScreenToShow.showAddManuel:
+        return AddSomething();
+      case ScreenToShow.showAddMoneyBucket:
+        return AddMoneyBucket();
+      default:
+        return AddSomething();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    return Container(
+      height: height * 0.67,
+      width: width * 0.9,
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(20)),
+      child:
+          whichAddToShow(Provider.of<WhichAddScreen>(context).getScreenToShow),
     );
   }
 }
