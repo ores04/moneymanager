@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:manager/widgets/buget.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/buget_provider.dart';
 
 class IncomeVsExpense extends StatelessWidget {
-  const IncomeVsExpense({Key? key}) : super(key: key);
+  final double available;
+  final double buget;
+
+  const IncomeVsExpense(
+      {Key? key, required this.available, required this.buget})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,20 +25,17 @@ class IncomeVsExpense extends StatelessWidget {
             width: width * 0.8,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
+              children: [
                 IncomeShower(
                   title: "AVAILABLE",
-                  amount: "1111",
+                  amount: "${available.round()}",
                 ),
-                VerticalDivider(
+                const VerticalDivider(
                   thickness: 1.5,
                   indent: 10,
                   endIndent: 10,
                 ),
-                IncomeShower(
-                  title: "BUGET",
-                  amount: "100000",
-                ),
+                Buget(buget: buget)
               ],
             ),
           ),

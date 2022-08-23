@@ -5,6 +5,7 @@ class MoneyBucketProvider with ChangeNotifier {
   final String name;
   final double totalAmount;
   double usedAmount;
+  bool _overspend = false;
 
   MoneyBucketProvider({
     required this.name,
@@ -13,6 +14,14 @@ class MoneyBucketProvider with ChangeNotifier {
   });
   double get getTotalAmount {
     return totalAmount;
+  }
+
+  bool get getOverspend {
+    return _overspend;
+  }
+
+  void setOverspent(bool pOverspend) {
+    _overspend = pOverspend;
   }
 
   String get getName {

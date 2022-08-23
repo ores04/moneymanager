@@ -16,6 +16,9 @@ class MoneyBucketListProvider with ChangeNotifier {
   void addMoneyBucket(String name, double amount, double spendAmount) {
     _moneyBuckets.add(MoneyBucketProvider(
         name: name, totalAmount: amount, usedAmount: spendAmount));
+    if (amount < spendAmount) {
+      _moneyBuckets.last.setOverspent(true);
+    }
     notifyListeners();
   }
 }
